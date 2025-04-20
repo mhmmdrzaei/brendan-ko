@@ -7,7 +7,8 @@ import { getPage,getsettings } from '@/sanity/sanity.utils';
 // import MembersCarousel from '../components/MembersCarousel';
 // import TextImageBox from '../components/TextImageBox';
 // import HeadingText from '../components/HeadingText';
-import Layout from '../components/Layout';
+
+import Layout from '../components/layout';
 // import HeadingImage from '../components/HeadingImage';
 
 // const componentMap = {
@@ -67,7 +68,7 @@ export async function generateMetadata({ params }) {
 // This function handles fetching page content based on slug
 export default async function Page({ params }) {
   const { slug } = await params;
-  const pageData = await pageBySlugQuery(slug);
+  const pageData = await getPage(slug);
 
   if (!pageData) {
     return <div>Page not found</div>;

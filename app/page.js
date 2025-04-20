@@ -1,20 +1,55 @@
-// app/page.js
-import { client } from './lib/sanity'
-import Layout from './components/Layout'
+import Image from 'next/image';
+import { PortableText } from 'next-sanity';
+import { getsettings, getPage } from '@/sanity/sanity.utils';
+import Page from './[slug]/page';
 
-async function getHomePage() {
-  return await client.fetch(`*[_type == "page" && slug.current == "home"][0]`)
+
+
+export async function generateMetadata() {
+  const settings = await getsettings();
+  const page = await getPage('home');
+  const title = `${settings?.siteTitle || ''} | ${page?.title || ''}`;
+  const description = page?.seo?.seoDescription || settings?.siteDescription || '';
+
+  const fallbackImage = settings?.seoImg?.asset?.url || '';
+  const seoImage = page?.seo?.seoImage?.asset?.url || fallbackImage;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: seoImage,
+      siteName: settings?.siteTitle || '',
+      images: [
+        {
+          url: seoImage,
+          width: 1200,
+          height: 628,
+        },
+      ],
+      locale: 'en_CA',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [seoImage],
+    },
+  };
 }
 
-export default async function Home() {
-  const page = await getHomePage()
+  
 
-  return (
-    <Layout>
-      <div className="home-page">
-        <h1>{page?.title || 'Welcome to our site'}</h1>
-        {/* You can render the tiles here when you have them */}
-      </div>
-    </Layout>
-  )
+export default async function Home() {
+  const homeSlug = 'home'; // Or whatever your homepage slug is
+  const pageData = await getPage(homeSlug);
+
+  if (!pageData) {
+    return <div>Home page not found</div>;
+  }
+
+  return <Page params={{ slug: homeSlug }} />;
 }

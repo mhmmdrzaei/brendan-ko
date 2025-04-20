@@ -1,56 +1,94 @@
-// app/[slug]/page.js
-import { client } from '../lib/sanity'
-import Layout from '../components/Layout'
-import { notFound } from 'next/navigation'
+import { getPage,getsettings } from '@/sanity/sanity.utils';
+// import BodyText from '../components/BodyText';
+// import CTAButton from '../components/CtaButton';
+// import GradientLine from '../components/GradientLine';
+// import Heading from '../components/Heading';
+// import LogoContainer from '../components/LogoContainer';
+// import MembersCarousel from '../components/MembersCarousel';
+// import TextImageBox from '../components/TextImageBox';
+// import HeadingText from '../components/HeadingText';
+import Layout from '../components/Layout';
+// import HeadingImage from '../components/HeadingImage';
+
+// const componentMap = {
+//   heading: Heading,
+//   headingText: HeadingText,
+//   bodyText: BodyText,
+//   logoContainer: LogoContainer,
+//   ctaButton: CTAButton,
+//   membersCarousel: MembersCarousel,
+//   gradientLine: GradientLine,
+//   textImageBox: TextImageBox,
+//   headingImage: HeadingImage
+// };
+
 
 export async function generateMetadata({ params }) {
-  const { slug } = params
-  const page = await client.fetch(`*[_type == "page" && slug.current == "${slug}"][0]`)
-  
-  if (!page) {
-    return {
-      title: 'Page Not Found',
-      description: 'The page you are looking for does not exist.',
-    }
-  }
-  
+  const { slug } =  await params;
+  const settings = await getsettings();
+  const page = await getPage(slug);
+
+  const title = `${settings?.siteTitle || ''} | ${page?.title || ''}`;
+  const description = page?.seo?.seoDescription || settings?.siteDescription || '';
+
+  const fallbackImage = settings?.seoImg?.asset?.url || '';
+  const seoImage = page?.seo?.seoImage?.asset?.url || fallbackImage;
+
   return {
-    title: page.meta_title || page.title,
-    description: page.meta_description,
-    openGraph: page.ogImage ? {
-      images: [{ url: urlFor(page.ogImage).url() }],
-    } : undefined,
-  }
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: seoImage,
+      siteName: settings?.siteTitle || '',
+      images: [
+        {
+          url: seoImage,
+          width: 1200,
+          height: 628,
+        },
+      ],
+      locale: 'en_CA',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [seoImage],
+    },
+  };
 }
 
-export async function generateStaticParams() {
-  const pages = await client.fetch(`*[_type == "page"]{
-    slug
-  }`)
   
-  return pages.map(page => ({
-    slug: page.slug.current,
-  }))
-}
+  
 
-async function getPage(slug) {
-  return await client.fetch(`*[_type == "page" && slug.current == "${slug}"][0]`)
-}
-
+// This function handles fetching page content based on slug
 export default async function Page({ params }) {
-  const { slug } = params
-  const page = await getPage(slug)
-  
-  if (!page) {
-    notFound()
+  const { slug } = await params;
+  const pageData = await pageBySlugQuery(slug);
+
+  if (!pageData) {
+    return <div>Page not found</div>;
   }
-  
+
+  const { title, pageBlocks } = pageData;
+
   return (
     <Layout>
-      <div className="page-content">
-        <h1>{page.title}</h1>
-        {/* You can render the tiles here when you have them */}
-      </div>
+    <div className="page-container">
+      {pageBlocks?.map((block) => {
+          const BlockComponent = componentMap[block._type];
+          if (!BlockComponent) {
+            console.warn(`No component for block type: ${block._type}`);
+            return null;
+          }
+          return <BlockComponent key={block._key} {...block} />;
+        })}
+
+
+    </div>
     </Layout>
-  )
+  );
 }

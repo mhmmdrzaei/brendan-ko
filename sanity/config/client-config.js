@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url'
 
 const config = {
-  projectId: 'c1ftpuiz',
+  projectId: 'yirvbvoo',
   dataset: 'production',
   apiVersion: '2023-05-03',
   useCdn: process.env.NODE_ENV === 'production',

@@ -1,3 +1,4 @@
+
 import Header from './Header';
 import Footer from './Footer';
 import { getsettings } from '@/sanity/sanity.utils';

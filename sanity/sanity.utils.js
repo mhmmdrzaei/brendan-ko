@@ -4,7 +4,7 @@ import clientConfig from './config/client-config'
 // Site Settings Query
 export async function getsettings() {
   return createClient(clientConfig).fetch( groq`
-  *[_type == "siteSettings"][0] {
+  *[_type == "settings"][0] {
   siteTitle,
   mainHeadingMenu[]->{
     ...,

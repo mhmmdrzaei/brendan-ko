@@ -1,30 +1,21 @@
 import { getProject,getsettings } from '@/sanity/sanity.utils';
-// import BodyText from '../components/BodyText';
-// import CTAButton from '../components/CtaButton';
-// import GradientLine from '../components/GradientLine';
-// import Heading from '../components/Heading';
-// import LogoContainer from '../components/LogoContainer';
-// import MembersCarousel from '../components/MembersCarousel';
-// import TextImageBox from '../components/TextImageBox';
-// import HeadingText from '../components/HeadingText';
+import ImageText from '@/app/components/ImageText';
+import SingleImage from '@/app/components/SingeImage';
+import TextItem from '@/app/components/TextItem';
 import Layout from '@/app/components/layout';
-// import HeadingImage from '../components/HeadingImage';
-
-// const componentMap = {
-//   heading: Heading,
-//   headingText: HeadingText,
-//   bodyText: BodyText,
-//   logoContainer: LogoContainer,
-//   ctaButton: CTAButton,
-//   membersCarousel: MembersCarousel,
-//   gradientLine: GradientLine,
-//   textImageBox: TextImageBox,
-//   headingImage: HeadingImage
-// };
+import TwoImage from '@/app/components/TwoImage';
+import VideoItem from '@/app/components/VideoItem';
+const componentMap = {
+  imageText: ImageText,
+  singleImage: SingleImage,
+  textItem: TextItem,
+  twoImage: TwoImage,
+  videoItem: VideoItem,
+};
 
 
 export async function generateMetadata({ params }) {
-  const { slug } =  await params;
+  const { slug } = await params;
   const settings = await getsettings();
   const page = await getProject(slug);
 
@@ -73,19 +64,20 @@ export default async function Page({ params }) {
     return <div>Page not found</div>;
   }
 
-  const { title, pageBlocks } = pageData;
+  const { title, tiles } = pageData;
 
   return (
     <Layout>
     <div className="page-container">
       <h1>{title}</h1>
-      {pageBlocks?.map((block) => {
+      {tiles?.map((block) => {
           const BlockComponent = componentMap[block._type];
           if (!BlockComponent) {
             console.warn(`No component for block type: ${block._type}`);
             return null;
           }
-          return <BlockComponent key={block._key} {...block} />;
+          return <BlockComponent key={block._key} value={block} />;
+
         })}
 
 

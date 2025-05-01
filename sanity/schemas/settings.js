@@ -44,6 +44,16 @@ export default defineType({
         },
       ],
     }),
+    defineField({
+      name: 'siteDescription',
+      title: 'Site Description (for SEO)',
+      type: 'text'
+    }),
+    defineField({
+      name: 'seoImg',
+      title: 'SEO Image',
+      type: 'image'
+    }),
   ],
   preview: {
     select: {

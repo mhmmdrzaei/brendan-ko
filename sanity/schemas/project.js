@@ -33,6 +33,19 @@ export default defineType({
       },
     }),
     defineField({
+        title: 'Page Displays as:',
+        name: 'pageDisplay',
+        type: 'string',
+        options: {
+            list: [
+                { title: 'Scroll', value: 'scroll' },
+                { title: 'Slide', value: 'slide' },
+            ],
+        },
+        initialValue: 'scroll',
+        validation: Rule => Rule.required()
+    }),
+    defineField({
       name: 'tiles',
       title: 'Tiles',
       type: 'array',
@@ -86,7 +99,7 @@ export default defineType({
     }),
     defineField({
       name: 'ogImage',
-      title: 'Open Graph Image - [1200x630]',
+      title: 'Open Graph Image - [1280x630 min]',
       type: 'image',
       group: 'settings',
     }),

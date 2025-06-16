@@ -28,10 +28,16 @@ export default defineType({
     }),
       defineField({
         name: "videoEmbed",
-        title: "Video URL",
+        title: "Video url",
         type: "url",
-        description: "Supports YouTube & Vimeo links",
-        validation: (Rule) => Rule.uri({ scheme: ["http", "https"] }).required(),
+        description: "Put your link here",
+          validation: Rule =>
+    Rule.required().uri({
+      scheme: ['https'],
+      allowRelative: false,
+    }).custom(url =>
+      url.includes('vimeo.com/') ? true : 'Must be a valid Vimeo URL'
+    )
       }),
   ]
 });

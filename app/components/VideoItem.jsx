@@ -1,29 +1,41 @@
 export default function VideoItem({ value }) {
-    const {
-      boxHeight,
-      spaceBetwen = 'medium',
-      videoEmbed,
-    } = value || {};
-  
-    if (!videoEmbed) return null;
-  
-    const heightStyle =
-      boxHeight && boxHeight < 100
-        ? { height: `${boxHeight}vh`, maxHeight: '100%' }
-        : { height: '100%' };
-  
-    return (
-      <div className={`video-item-wrapper ${spaceBetwen}`} style={heightStyle}>
-        <div className="video-item-embed">
-          <iframe
-            src={videoEmbed}
-            title="Embedded video"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
+  const {
+    boxHeight,
+    spaceBetwen = 'medium',
+    videoEmbed,
+  } = value || {};
+
+  if (!videoEmbed) return null;
+
+  const heightStyle =
+    boxHeight && boxHeight < 100
+      ? { height: `${boxHeight}vh` }
+      : { height: '100vh' };
+
+  const match = videoEmbed.match(/vimeo\.com\/(\d+)(?:\/([a-zA-Z0-9]+))?/);
+  if (!match) return null;
+
+  const videoId = match[1];
+  const hash = match[2];
+  const embedUrl = `https://player.vimeo.com/video/${videoId}${hash ? `?h=${hash}` : '?'}&autoplay=1&muted=1&loop=1&background=1&controls=0&dnt=1`;
+
+  return (
+    <div className={`video-item-wrapper ${spaceBetwen}`} style={heightStyle}>
+      <div className="video-item">
+        <iframe
+          src={embedUrl}
+          style={{
+            width: '100vw',
+            height: '100%',
+            border: '0',
+          }}
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title="Embedded Vimeo Video"
+        />
       </div>
-    );
-  }
-  
+    </div>
+  );
+}
+
+

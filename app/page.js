@@ -2,17 +2,19 @@ import Image from 'next/image';
 import { PortableText } from 'next-sanity';
 import { getsettings, getPage } from '@/sanity/sanity.utils';
 import Page from './[slug]/page';
+import Layout from './components/Layout';
+import Link from 'next/link';
 
 
 
 export async function generateMetadata() {
   const settings = await getsettings();
   const page = await getPage('home');
-  const title = `${settings?.siteTitle || ''} | ${page?.title || ''}`;
-  const description = page?.seo?.seoDescription || settings?.siteDescription || '';
+  const title = `${settings?.siteTitle || ''} | ${page?.meta_title ? `${page.meta_title}`: `${page?.title}` }`;
+  const description = page?.meta_description || settings?.siteDescription || '';
 
   const fallbackImage = settings?.seoImg?.asset?.url || '';
-  const seoImage = page?.seo?.seoImage?.asset?.url || fallbackImage;
+  const seoImage = page?.ogImage?.asset?.url || fallbackImage;
 
   return {
     title,
@@ -48,8 +50,17 @@ export default async function Home() {
   const pageData = await getPage(homeSlug);
 
   if (!pageData) {
-    return <div>Home page not found</div>;
+    return(
+
+            <Layout>
+        <div className="not-found">
+          <h1>404 - Page Not Found</h1>
+          <p>The page you are looking for does not exist.</p>
+          <Link href="/">Go back to home</Link>
+        </div>
+      </Layout>
+    )
   }
 
-  return <Page params={{ slug: homeSlug }} />;
+  return <Page key={1} params={{ slug: homeSlug }} />;
 }

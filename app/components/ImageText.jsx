@@ -11,23 +11,24 @@ export default function ImageText({ value }) {
 
   const heightStyle =
     boxHeight && boxHeight < 100
-      ? { height: `${boxHeight}vh`, maxHeight: '100%' }
+      ? { height: `${boxHeight}%` }
       : { height: '100%' };
 
   return (
     <div className={`image-text-wrapper ${spaceBetwen}`} style={heightStyle}>
 {slideImage1?.asset?.url && (
-  <div className="image-text-image">
+  <figure className="image-text-image">
     <Image
       src={slideImage1.asset.url}
       alt={slideImage1.altText || 'Slide Image'}
-      fill
+      width={800}
+      height={800}
       className="image-object"
     />
     {slideImage1.caption && (
       <p className="image-caption">{slideImage1.caption}</p>
     )}
-  </div>
+  </figure>
 )}
       <div className="image-text-content">
         <PortableText value={slideText} />

@@ -10,18 +10,20 @@ export default function TwoImage({ value }) {
 
   const heightStyle =
     boxHeight && boxHeight < 100
-      ? { height: `${boxHeight}vh`, maxHeight: '100%' }
+      ? { height: `${boxHeight}%` }
       : { height: '100%' };
 
   return (
-    <div className={`two-image-wrapper ${spaceBetwen}`} style={heightStyle}>
+    <div className={`two-image-wrapper ${spaceBetwen}`}  >
       {slideImage1?.asset && (
         <div className="two-image-item">
           <Image
             src={slideImage1.asset.url}
             alt={slideImage1.altText || 'Image 1'}
-            fill
+            width={800}
+            height={800}
             className="image-object"
+            style={heightStyle}
           />
           {slideImage1.caption && (
             <p className="image-caption">{slideImage1.caption}</p>
@@ -34,8 +36,10 @@ export default function TwoImage({ value }) {
           <Image
             src={slideImage2.asset.url}
             alt={slideImage2.altText || 'Image 2'}
-            fill
+            width={800}
+            height={800}
             className="image-object"
+            style={heightStyle}
           />
           {slideImage2.caption && (
             <p className="image-caption">{slideImage2.caption}</p>

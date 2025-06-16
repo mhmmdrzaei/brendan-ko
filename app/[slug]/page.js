@@ -2,9 +2,11 @@ import { getPage,getsettings } from '@/sanity/sanity.utils';
 import ImageText from '@/app/components/ImageText';
 import SingleImage from '@/app/components/SingeImage';
 import TextItem from '@/app/components/TextItem';
-import Layout from '@/app/components/layout';
+import Layout from '@/app/components/Layout';
 import TwoImage from '@/app/components/TwoImage';
 import VideoItem from '@/app/components/VideoItem';
+import Link from 'next/link';
+import SliderWrapper from '../components/SliderWrappeer';
 const componentMap = {
   imageText: ImageText,
   singleImage: SingleImage,
@@ -20,11 +22,11 @@ export async function generateMetadata({ params }) {
   const settings = await getsettings();
   const page = await getPage(slug);
 
-  const title = `${settings?.siteTitle || ''} | ${page?.title || ''}`;
-  const description = page?.seo?.seoDescription || settings?.siteDescription || '';
+  const title = `${settings?.siteTitle || ''} | ${page?.meta_title ? `${page.meta_title}`: `${page?.title}` }`;
+  const description = page?.meta_description || settings?.siteDescription || '';
 
   const fallbackImage = settings?.seoImg?.asset?.url || '';
-  const seoImage = page?.seo?.seoImage?.asset?.url || fallbackImage;
+  const seoImage = page?.ogImage?.asset?.url || fallbackImage;
 
   return {
     title,
@@ -62,25 +64,41 @@ export default async function Page({ params }) {
   const pageData = await getPage(slug);
 
   if (!pageData) {
-    return <div>Page not found</div>;
+          <Layout>
+        <div className="not-found">
+          <h2>404 - Page Not Found</h2>
+          <p>The page you are looking for does not exist.</p>
+          <Link href="/">Go back to home</Link>
+        </div>
+      </Layout>
   }
+  const { pageDisplay = 'scroll', tiles } = pageData;
 
-  const { title, tiles } = pageData;
 
   return (
     <Layout>
-    <div className="page-container">
-      {tiles?.map((block) => {
-          const BlockComponent = componentMap[block._type];
-          if (!BlockComponent) {
-            console.warn(`No component for block type: ${block._type}`);
-            return null;
-          }
-          return <BlockComponent key={block._key} value={block} />;
-        })}
+     <>
+        {pageDisplay === 'slide' ? (
+          <div className='page-slider'>
+          <SliderWrapper tiles={tiles}  />
+          </div>
+        ) : (
+           <div className='page-scroller'>
+                      {tiles.map((block) => {
+            const BlockComponent = componentMap[block._type];
+            return BlockComponent ? (
+              
+              <BlockComponent key={block._key} value={block} />
+             
+            ) : null;
+          })}
 
 
-    </div>
+           </div>
+          
+
+        )}
+      </>
     </Layout>
   );
 }

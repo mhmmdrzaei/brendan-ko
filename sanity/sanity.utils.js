@@ -34,6 +34,7 @@ export async function getPage(slug) {
     groq`*[_type == "page" && slug.current == $slug][0] {
   title,
   slug,
+  pageDisplay,
   tiles[]{
     ...,
     _type == 'singleImage' => {
@@ -97,6 +98,7 @@ export async function getProject(slug) {
     *[_type == "project" && slug.current == $slug][0] {
   title,
   slug,
+  pageDisplay,
   categories[]->{
     _id,
     title,

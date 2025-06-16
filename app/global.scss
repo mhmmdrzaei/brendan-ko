@@ -1,0 +1,303 @@
+@font-face {
+  font-family: "gazette_lt_stdbold";
+  src:
+    url("../public/fonts/gazetteltstd-bold-webfont.woff2") format("woff2"),
+    url("../public/fonts/gazetteltstd-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "gazette_lt_stditalic";
+  src:
+    url("../public/fonts/gazetteltstd-italic-webfont.woff2") format("woff2"),
+    url("../public/fonts/gazetteltstd-italic-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "gazette_lt_stdroman";
+  src:
+    url("../public/fonts/gazetteltstd-roman-webfont.woff2") format("woff2"),
+    url("../public/fonts/gazetteltstd-roman-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+$blue: #252d59;
+$orange: #dc4300;
+$yellow: #dcc000;
+//header
+.site-header {
+    max-width: 1440px;
+  margin: 20px auto;
+  @extend .flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  .heading-left {
+    width: 70%;
+    max-width: 650px;
+    .site-branding {
+      display: flex;
+      align-items: center;
+      a {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      .circles {
+        display: flex;
+        div {
+          width: 30px;
+          height: 30px;
+          margin: 0 5px;
+          border-radius: 50%;
+
+        }
+        .yellow {
+          background: $yellow;
+
+        }
+        .blue {
+          background: $blue;
+        }
+        .orange {
+          background: $orange;
+        }
+      }
+
+    }
+    .main-heading-menu {
+      @extend .flex;
+      width: 100%;
+      justify-content: space-between;
+      list-style: none;
+      li {
+      position: relative;
+      // padding: 0 30px;
+      details summary {
+        list-style: none;
+      }
+details summary::before {
+  content: "+ ";
+
+  font-weight: bold;
+}
+
+details[open] summary::before {
+  content: "− ";
+}
+      ul {
+        padding: 10px 10px;
+        list-style: none;
+        margin: 0;
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        min-width: 150px;
+        li {
+          padding: 0 0 5px;
+          color: white;
+          mix-blend-mode: difference;
+          
+        }
+      }
+    }
+    }
+  }
+  .side-heading-menu {
+    li {
+    list-style: none;
+    }
+
+    margin: 0;
+    padding: 0;
+    text-align: right;
+  }
+
+}
+.hamburger {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: inline-block;
+    margin-left: 1rem;
+  }
+
+  .main-heading-menu,
+  .side-heading-menu {
+    display: none;
+    flex-direction: column;
+    background: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  .main-heading-menu.openMenu,
+  .side-heading-menu.openMenu {
+    display: flex;
+  }
+}
+
+//pages
+.page-container {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-between;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 15px;
+  height: fit-content;
+}
+.page-scroller {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100vw;
+    height: calc(100dvh - 180px);
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  align-items: center;
+}
+@mixin fontSize($sizeValue) {
+  font-size: $sizeValue * 1px;
+  font-size: calc($sizeValue/10) * 1rem;
+}
+.flex {
+  display: flex;
+  flex-flow: row wrap;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "gazette_lt_stdbold", serif;
+  font-weight: 900;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+h1 {
+  @include fontSize(25);
+  @media (max-width: 790px) {
+    @include fontSize(22);
+  }
+}
+h2 {
+  @include fontSize(15);
+}
+h3 {
+  @include fontSize(12);
+}
+h4 {
+  @include fontSize(11);
+}
+p {
+  font-family: "gazette_lt_stdroman", serif;
+  line-height: 1.5;
+  strong {
+    font-weight: 600;
+  }
+}
+//blocks
+.image-text-wrapper {
+  @extend .flex;
+  justify-content: center;
+  align-items: center;
+  .image-text-content {
+      flex: 0 0 calc(100vw - 30px);
+  width: calc(100vw - 30px);
+  max-width: 1440px;
+  height: calc(100dvh - 225px);
+    scroll-snap-align: start;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+}
+.single-image-wrapper {
+   flex: 0 0 calc(100vw - 30px);
+  width: calc(100vw - 30px);
+  max-width: 1440px;
+  height: calc(100dvh - 225px);
+  .single-image-container {
+    flex: 0 0 100vw;
+    width: 100vw;
+    height: 100%;
+    scroll-snap-align: start;
+    img {
+      max-height: calc(100dvh - 180px);
+      margin: 0 auto;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+.two-image-wrapper {
+  flex: 0 0 calc(100vw - 30px);
+  width: calc(100vw - 30px);
+  max-width: 1440px;
+  height: calc(100dvh - 225px);
+  @extend .flex;
+  scroll-snap-align: start;
+  width: 100vw;
+  justify-content: space-around;
+  align-items: center;
+  .two-image-item {
+    width: 45%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}
+.image-caption {
+  width: 100%;
+  text-align: center;
+  @include fontSize(8);
+}
+.video-item-wrapper {
+  justify-content: center;
+  align-items: center;
+   flex: 0 0 calc(100vw - 30px);
+  width: calc(100vw - 30px);
+  max-width: 1440px;
+  height: calc(100dvh - 225px);
+  scroll-snap-align: start;
+
+  .video-item {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+}

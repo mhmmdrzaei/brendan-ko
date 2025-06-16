@@ -1,10 +1,12 @@
-import { getProject,getsettings } from '@/sanity/sanity.utils';
-import ImageText from '@/app/components/ImageText';
-import SingleImage from '@/app/components/SingeImage';
-import TextItem from '@/app/components/TextItem';
-import Layout from '@/app/components/layout';
-import TwoImage from '@/app/components/TwoImage';
-import VideoItem from '@/app/components/VideoItem';
+import { getProject, getsettings } from "@/sanity/sanity.utils";
+import ImageText from "@/app/components/ImageText";
+import SingleImage from "@/app/components/SingeImage";
+import TextItem from "@/app/components/TextItem";
+import Layout from "@/app/components/Layout";
+import TwoImage from "@/app/components/TwoImage";
+import Link from "next/link";
+import SliderWrapper from "@/app/components/SliderWrappeer";
+import VideoItem from "@/app/components/VideoItem";
 const componentMap = {
   imageText: ImageText,
   singleImage: SingleImage,
@@ -13,17 +15,16 @@ const componentMap = {
   videoItem: VideoItem,
 };
 
-
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const settings = await getsettings();
   const page = await getProject(slug);
 
-  const title = `${settings?.siteTitle || ''} | ${page?.title || ''}`;
-  const description = page?.seo?.seoDescription || settings?.siteDescription || '';
+  const title = `${settings?.siteTitle || ""} | ${page?.meta_title ? `${page.meta_title}` : `${page?.title}`}`;
+  const description = page?.meta_description || settings?.siteDescription || "";
 
-  const fallbackImage = settings?.seoImg?.asset?.url || '';
-  const seoImage = page?.seo?.seoImage?.asset?.url || fallbackImage;
+  const fallbackImage = settings?.seoImg?.asset?.url || "";
+  const seoImage = page?.ogImage?.asset?.url || fallbackImage;
 
   return {
     title,
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }) {
       title,
       description,
       url: seoImage,
-      siteName: settings?.siteTitle || '',
+      siteName: settings?.siteTitle || "",
       images: [
         {
           url: seoImage,
@@ -40,20 +41,17 @@ export async function generateMetadata({ params }) {
           height: 628,
         },
       ],
-      locale: 'en_CA',
-      type: 'website',
+      locale: "en_CA",
+      type: "website",
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title,
       description,
       images: [seoImage],
     },
   };
 }
-
-  
-  
 
 // This function handles fetching page content based on slug
 export default async function Page({ params }) {
@@ -64,24 +62,32 @@ export default async function Page({ params }) {
     return <div>Page not found</div>;
   }
 
-  const { title, tiles } = pageData;
-
+  const { pageDisplay = "scroll", tiles, title } = pageData;
   return (
     <Layout>
-    <div className="page-container">
-      <h1>{title}</h1>
-      {tiles?.map((block) => {
-          const BlockComponent = componentMap[block._type];
-          if (!BlockComponent) {
-            console.warn(`No component for block type: ${block._type}`);
-            return null;
-          }
-          return <BlockComponent key={block._key} value={block} />;
+      <>
+        <h2>{title}</h2>
+        {pageDisplay === "slide" ? (
+           <div className='page-slider'>
+          <SliderWrapper tiles={tiles} />
+          </div>
+        ) : (
+                    <div className='page-scroller'>
 
-        })}
+          {tiles?.map((block) => {
+            const BlockComponent = componentMap[block._type];
+            if (!BlockComponent) {
+              console.warn(`No component for block type: ${block._type}`);
+              return null;
+            }
+            return  <BlockComponent key={block._key} value={block} /> ;
+          })}
 
+                    </div>
+          
 
-    </div>
+        )}
+      </>
     </Layout>
   );
 }

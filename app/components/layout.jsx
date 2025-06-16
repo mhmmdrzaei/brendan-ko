@@ -9,8 +9,7 @@ export default async function Layout({ children }) {
     <>
     
       <Header settings={settings} />
-      <main>{children}</main>
-      <Footer settings={settings} />
+      <main className='page-container'>{children}</main>
     </>
   );
 }

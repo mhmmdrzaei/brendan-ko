@@ -9,23 +9,25 @@ export default function SingleImage({ value }) {
 
   const heightStyle =
     boxHeight && boxHeight < 100
-      ? { height: `${boxHeight}vh`, maxHeight: '100%' }
+      ? { height: `${boxHeight}%`}
       : { height: '100%' };
 
   return (
-    <div className={`single-image-wrapper ${spaceBetwen}`} style={heightStyle}>
+    <div className={`single-image-wrapper ${spaceBetwen}`}>
       {slideImage?.asset && (
-        <div className="single-image-container">
+        <figure className="single-image-container">
           <Image
             src={slideImage.asset.url}
             alt={slideImage.altText || 'Slide Image'}
-            fill
+            width={1400}
+            height={800}
             className="image-object"
+            style={heightStyle}
           />
           {slideImage.caption && (
             <p className="image-caption">{slideImage.caption}</p>
           )}
-        </div>
+        </figure>
       )}
     </div>
   );

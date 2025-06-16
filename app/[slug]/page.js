@@ -2,7 +2,7 @@ import { getPage, getsettings } from "@/sanity/sanity.utils";
 import ImageText from "@/app/components/ImageText";
 import SingleImage from "@/app/components/SingeImage";
 import TextItem from "@/app/components/TextItem";
-import Layout from "../components/Layout";
+import Layout from "@/app/components/Layout"
 import TwoImage from "@/app/components/TwoImage";
 import VideoItem from "@/app/components/VideoItem";
 import Link from "next/link";

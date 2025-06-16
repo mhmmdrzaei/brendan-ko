@@ -1,5 +1,5 @@
 
-import Footer from './Footer';
+
 import Header from '@/app/components/header'
 import { getsettings } from '@/sanity/sanity.utils';
 

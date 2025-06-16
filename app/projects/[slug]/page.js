@@ -2,7 +2,7 @@ import { getProject, getsettings } from "@/sanity/sanity.utils";
 import ImageText from "@/app/components/ImageText";
 import SingleImage from "@/app/components/SingeImage";
 import TextItem from "@/app/components/TextItem";
-import Layout from "@/app/components/Layout";
+import Layout from "@/app/components/LayoutPage";
 import TwoImage from "@/app/components/TwoImage";
 import PageTitle from "@/app/components/PageTitle";
 import VideoItem from "@/app/components/VideoItem";

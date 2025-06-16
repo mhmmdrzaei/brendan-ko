@@ -1,7 +1,7 @@
 
 import { getsettings, getPage } from '@/sanity/sanity.utils';
 import Page from './[slug]/page';
-import Layout from '@/app/components/Layout'
+import Layout from '@/app/components/LayoutPage'
 import Link from 'next/link';
 
 

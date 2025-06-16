@@ -36,8 +36,9 @@ export async function getPage(slug) {
   slug,
   pageDisplay,
   tiles[]{
-    ...,
     _type == 'singleImage' => {
+      _type,
+      _key,
       boxHeight,
       spaceBetwen,
       slideImage {
@@ -48,14 +49,33 @@ export async function getPage(slug) {
         altText
       }
     },
-    _type == 'textItem' => {
+     _type == 'imageText' => {
+      _type,
+      _key,
       boxHeight,
+      spaceBetwen,
+      slideImage1 {
+        asset->{
+          url
+        },
+        caption,
+        altText
+      },
+      slideText[]{
+      ...
+      }
+    },
+    _type == 'textItem' => {
+      _type,
+      _key,
       spaceBetwen,
       slideText[]{
         ...
       }
     },
     _type == 'twoImage' => {
+      _type,
+      _key,
       boxHeight,
       spaceBetwen,
       slideImage1 {
@@ -74,6 +94,8 @@ export async function getPage(slug) {
       }
     },
     _type == 'videoItem' => {
+      _type,
+      _key,
       boxHeight,
       spaceBetwen,
       videoEmbed
@@ -105,9 +127,10 @@ export async function getProject(slug) {
     slug
   },
   tiles[]{
-    ...,
     _type == 'singleImage' => {
+      _type,
       boxHeight,
+      _key,
       spaceBetwen,
       slideImage {
         asset->{
@@ -118,13 +141,16 @@ export async function getProject(slug) {
       }
     },
     _type == 'textItem' => {
-      boxHeight,
+      _type,
+      _key,
       spaceBetwen,
       slideText[]{
         ...
       }
     },
     _type == 'twoImage' => {
+      _type,
+      _key,
       boxHeight,
       spaceBetwen,
       slideImage1 {
@@ -143,11 +169,30 @@ export async function getProject(slug) {
       }
     },
     _type == 'videoItem' => {
+      _type,
+      _key,
       boxHeight,
       spaceBetwen,
       videoEmbed
-    }
+    },
+      _type == 'imageText' => {
+    _type,
+    _key,
+      boxHeight,
+      spaceBetwen,
+      slideImage1 {
+        asset->{
+          url
+        },
+        caption,
+        altText
+      },
+      slideText[]{
+      ...
+      }
+    },
   },
+
   meta_title,
   meta_description,
   ogImage {

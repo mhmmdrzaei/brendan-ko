@@ -6,6 +6,7 @@ import Layout from "@/app/components/Layout";
 import TwoImage from "@/app/components/TwoImage";
 import Link from "next/link";
 import SliderWrapper from "@/app/components/SliderWrappeer";
+import PageTitle from "@/app/components/PageTitle";
 import VideoItem from "@/app/components/VideoItem";
 const componentMap = {
   imageText: ImageText,
@@ -66,27 +67,19 @@ export default async function Page({ params }) {
   return (
     <Layout>
       <>
-        <h2>{title}</h2>
-        {pageDisplay === "slide" ? (
-           <div className='page-slider'>
-          <SliderWrapper tiles={tiles} />
-          </div>
-        ) : (
-                    <div className='page-scroller'>
-
-          {tiles?.map((block) => {
+        <PageTitle>{title}</PageTitle>
+      <>
+        <div
+          className={`${pageDisplay === "slide" ? "page-slider" : "page-scroller"}`}
+        >
+          {tiles && (tiles.map((block) => {
             const BlockComponent = componentMap[block._type];
-            if (!BlockComponent) {
-              console.warn(`No component for block type: ${block._type}`);
-              return null;
-            }
-            return  <BlockComponent key={block._key} value={block} /> ;
-          })}
-
-                    </div>
-          
-
-        )}
+            return BlockComponent ? (
+              <BlockComponent key={block._key} value={block} />
+            ) : null;
+          }))}
+        </div>
+      </>
       </>
     </Layout>
   );

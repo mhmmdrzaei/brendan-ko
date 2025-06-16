@@ -15,23 +15,24 @@ export default function ImageText({ value }) {
       : { height: '100%' };
 
   return (
-    <div className={`image-text-wrapper ${spaceBetwen}`} style={heightStyle}>
-{slideImage1?.asset?.url && (
-  <figure className="image-text-image">
+    <div className={`image-text-wrapper ${spaceBetwen}`} >
+{slideImage1 && (
+  <figure className="image-text-image" >
     <Image
       src={slideImage1.asset.url}
       alt={slideImage1.altText || 'Slide Image'}
       width={800}
       height={800}
       className="image-object"
+      style={heightStyle}
     />
     {slideImage1.caption && (
       <p className="image-caption">{slideImage1.caption}</p>
     )}
   </figure>
 )}
-      <div className="image-text-content">
-        <PortableText value={slideText} />
+      <div className="image-text-content" >
+        <PortableText value={slideText} style={heightStyle}/>
       </div>
     </div>
   );

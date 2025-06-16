@@ -25,7 +25,9 @@ export default function Header({ settings }) {
   }, []);
 
   return (
-    <header className="site-header">
+    <header className={`${
+            mobileOpen ? "headingOpen" : ""
+          } site-header`}>
       <div className="heading-left">
         <div className="site-branding">
           <Link href="/">
@@ -36,15 +38,16 @@ export default function Header({ settings }) {
             <div className="orange"></div>
             <div className="blue"></div>
           </div>
+<button
+  className={`hamburger ${mobileOpen ? 'active' : ''}`}
+  onClick={() => setMobileOpen((prev) => !prev)}
+  aria-label="Toggle menu"
+>
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
 
-          {/* 🍔 Hamburger */}
-          <button
-            className="hamburger"
-            onClick={() => setMobileOpen((prev) => !prev)}
-            aria-label="Toggle menu"
-          >
-            ☰
-          </button>
         </div>
 
         <nav
@@ -97,7 +100,7 @@ export default function Header({ settings }) {
       {sideHeadingMenu.length > 0 && (
         <nav
           className={`side-heading-menu ${
-            mobileOpen ? "open" : "collapsed"
+            mobileOpen ? "openMenu" : "collapsed"
           }`}
         >
           {sideHeadingMenu.map((item, index) => (

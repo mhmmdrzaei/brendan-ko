@@ -8,12 +8,6 @@ export default defineType({
   icon: TextQuote,
   fields: [
     defineField({
-        name:"boxHeight",
-        title: "Box Height",
-        description:"if height is less than 100% fill out a number from 1 - 100",
-        type: "number"
-    }),
-    defineField({
         title: 'Space between item and next item',
         name: 'spaceBetwen',
         type: 'string',

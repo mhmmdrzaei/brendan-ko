@@ -15,14 +15,14 @@ export default function SingleImage({ value }) {
   return (
     <div className={`single-image-wrapper ${spaceBetwen}`}>
       {slideImage?.asset && (
-        <figure className="single-image-container">
+        <figure className="single-image-container" style={heightStyle}>
           <Image
             src={slideImage.asset.url}
             alt={slideImage.altText || 'Slide Image'}
             width={1400}
             height={800}
             className="image-object"
-            style={heightStyle}
+            
           />
           {slideImage.caption && (
             <p className="image-caption">{slideImage.caption}</p>

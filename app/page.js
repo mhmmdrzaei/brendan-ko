@@ -1,5 +1,4 @@
-import Image from 'next/image';
-import { PortableText } from 'next-sanity';
+
 import { getsettings, getPage } from '@/sanity/sanity.utils';
 import Page from './[slug]/page';
 import Layout from './components/Layout';

@@ -4,8 +4,6 @@ import SingleImage from "@/app/components/SingeImage";
 import TextItem from "@/app/components/TextItem";
 import Layout from "@/app/components/Layout";
 import TwoImage from "@/app/components/TwoImage";
-import Link from "next/link";
-import SliderWrapper from "@/app/components/SliderWrappeer";
 import PageTitle from "@/app/components/PageTitle";
 import VideoItem from "@/app/components/VideoItem";
 const componentMap = {

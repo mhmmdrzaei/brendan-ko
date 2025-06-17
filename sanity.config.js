@@ -6,6 +6,7 @@ import {visionTool} from '@sanity/vision'
 import { schemaTypes } from './sanity/schemas'
 import { myStructure } from './sanity/struture'
 import { iconPicker } from 'sanity-plugin-icon-picker';
+import StudioLogo from './app/components/CompanyLogo'
 
 export default defineConfig({
   name: 'default',
@@ -13,6 +14,7 @@ export default defineConfig({
   
   projectId: 'yirvbvoo', // Replace with your Sanity project ID
   dataset: 'production',
+    icon: StudioLogo,
   
   plugins: [ structureTool({structure:myStructure}) , visionTool(),iconPicker()],
   

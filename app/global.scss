@@ -515,6 +515,7 @@ overflow-x: auto;
   height: 22px;
   position: fixed;
   right: 15px;
+  top: 25px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -577,6 +578,11 @@ overflow-x: auto;
       flex-flow: wrap;
       .circles {
         margin-top: 5px;
+        div {
+          width: 20px;
+          height: 20px;
+          margin: 0 2px 0 0;
+        }
       }
     }
    .main-heading-menu {
@@ -588,9 +594,13 @@ overflow-x: auto;
     left: 0;
     text-align: center;
     top: 200px;
-    li ul {
-      position: initial;
+    li {
+      margin-bottom: 15px;
+      ul {
+        position: initial;
+      }
     }
+
 
   }
   }
@@ -659,7 +669,7 @@ overflow-x: auto;
   }
 
     h1 {
-    @include fontSize(15);
+    @include fontSize(14);
   }
   .page-scroller, .page-slider {
 

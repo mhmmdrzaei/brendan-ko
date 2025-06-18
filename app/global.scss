@@ -633,6 +633,7 @@ overflow-x: auto;
     .video-item-wrapper {
       height: 100%;
       margin-bottom: 30px;
+      max-height: 500px;
     }
     .image-text-wrapper {
       height: auto;
@@ -669,7 +670,7 @@ overflow-x: auto;
   }
 
     h1 {
-    @include fontSize(14);
+    @include fontSize(13.5);
   }
   .page-scroller, .page-slider {
 

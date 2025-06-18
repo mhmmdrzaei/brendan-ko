@@ -3,6 +3,7 @@ export default function VideoItem({ value }) {
     boxHeight,
     spaceBetwen = 'medium',
     videoEmbed,
+    showControls = false,
   } = value || {};
 
   if (!videoEmbed) return null;
@@ -17,11 +18,24 @@ export default function VideoItem({ value }) {
 
   const videoId = match[1];
   const hash = match[2];
-  const embedUrl = `https://player.vimeo.com/video/${videoId}${hash ? `?h=${hash}` : '?'}&autoplay=1&muted=1&loop=1&background=1&controls=0&dnt=1`;
+
+  const params = new URLSearchParams({
+    autoplay: showControls ? '0' : '1',
+    muted: '1',
+    loop: '1',
+    background: showControls ? '0' : '1',
+    controls: showControls ? '1' : '0',
+    dnt: '1',
+  playsinline: '1',
+  });
+
+  if (hash) params.set('h', hash);
+
+  const embedUrl = `https://player.vimeo.com/video/${videoId}?${params.toString()}`;
 
   return (
     <div className={`video-item-wrapper ${spaceBetwen}`}>
-      <div className="video-item"  style={heightStyle}>
+      <div className="video-item" style={heightStyle}>
         <iframe
           src={embedUrl}
           style={{
@@ -31,11 +45,10 @@ export default function VideoItem({ value }) {
           }}
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
+          playsInline
           title="Embedded Vimeo Video"
         />
       </div>
     </div>
   );
 }
-
-

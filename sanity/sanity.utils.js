@@ -119,7 +119,8 @@ export async function getPage(slug) {
       _key,
       boxHeight,
       spaceBetwen,
-      videoEmbed
+      videoEmbed,
+      showControls
     }
   },
   meta_title,
@@ -215,7 +216,8 @@ export async function getProject(slug) {
       _key,
       boxHeight,
       spaceBetwen,
-      videoEmbed
+      videoEmbed,
+      showControls
     },
       _type == 'imageText' => {
     _type,

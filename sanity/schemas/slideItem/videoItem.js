@@ -39,6 +39,12 @@ export default defineType({
       url.includes('vimeo.com/') ? true : 'Must be a valid Vimeo URL'
     )
       }),
+      defineField({
+  name: "showControls",
+  title: "Show Video Controls?",
+  type: "boolean",
+  initialValue: false,
+}),
   ],
     preview: {
   select: {

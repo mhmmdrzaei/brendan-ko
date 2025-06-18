@@ -39,5 +39,17 @@ export default defineType({
       url.includes('vimeo.com/') ? true : 'Must be a valid Vimeo URL'
     )
       }),
-  ]
+  ],
+    preview: {
+  select: {
+    height: 'boxHeight',
+    spacing: 'spaceBetwen',
+  },
+  prepare({ height, spacing }) {
+    return {
+      title: 'Video',
+      subtitle: `${height ? `${height}%` : '100%'}, ${spacing || 'Default'}`,
+    };
+  },
+}
 });

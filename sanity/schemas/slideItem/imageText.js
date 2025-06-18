@@ -48,5 +48,19 @@ export default defineType({
         type: 'array', 
         of: [{type: 'block'}]
       }),
-  ]
+  ],
+  preview: {
+  select: {
+    media: 'slideImage1',
+    height: 'boxHeight',
+    spacing: 'spaceBetwen',
+  },
+  prepare({ media, height, spacing }) {
+    return {
+      title: 'Image Text',
+      subtitle: `${height ? `${height}%` : 'Auto'}, ${spacing || 'Default'}`,
+      media,
+    };
+  },
+}
 });

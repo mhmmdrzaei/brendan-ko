@@ -41,6 +41,13 @@ export async function getPage(slug) {
       _key,
       boxHeight,
       spaceBetwen,
+      enableHoverSwap,
+       hoverImage {
+       asset-> {
+       url
+       },
+       altText
+      },
       slideImage {
         asset->{
           url
@@ -78,6 +85,20 @@ export async function getPage(slug) {
       _key,
       boxHeight,
       spaceBetwen,
+      enableSwap1,
+      enableSwap2,
+      swapImage1 {
+        asset->{
+          url
+        },
+        altText
+      },
+      swapImage2 {
+        asset->{
+          url
+        },
+        altText
+      },
       slideImage1 {
         asset->{
           url
@@ -131,6 +152,13 @@ export async function getProject(slug) {
       _type,
       boxHeight,
       _key,
+      enableHoverSwap,
+       hoverImage {
+       asset-> {
+       url
+       },
+       altText
+      },
       spaceBetwen,
       slideImage {
         asset->{
@@ -153,6 +181,20 @@ export async function getProject(slug) {
       _key,
       boxHeight,
       spaceBetwen,
+      enableSwap1,
+      enableSwap2,
+      swapImage1 {
+        asset->{
+          url
+        },
+        altText
+      },
+      swapImage2 {
+        asset->{
+          url
+        },
+        altText
+      },
       slideImage1 {
         asset->{
           url

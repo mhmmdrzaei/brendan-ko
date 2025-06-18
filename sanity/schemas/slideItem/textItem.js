@@ -26,5 +26,12 @@ export default defineType({
         type: 'array', 
         of: [{type: 'block'}]
       }),
-  ]
+  ],
+    preview: {
+  prepare({ }) {
+    return {
+      title: 'Text',
+    };
+  },
+}
 });

@@ -29,17 +29,17 @@ export default defineType({
         },
         {
           name: "twoImage",
-          title: "Two Image Slide",
+          title: "Two Image",
           type: "twoImage"
         },
         {
           name: "textItem",
-          title: "Text Slide",
+          title: "Text",
           type: "textItem",
         },
         {
           name: "videoItem",
-          title: "Video Slide",
+          title: "Video",
           type: "videoItem"
         }
         

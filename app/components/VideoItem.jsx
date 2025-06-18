@@ -22,8 +22,7 @@ export default function VideoItem({ value }) {
   const params = new URLSearchParams({
     autoplay: showControls ? '0' : '1',
     muted: '1',
-    loop: '1',
-    background: showControls ? '0' : '1',
+    loop: '1', 
     controls: showControls ? '1' : '0',
     dnt: '1',
   playsinline: '1',

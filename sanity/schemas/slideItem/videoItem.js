@@ -19,6 +19,7 @@ export default defineType({
         type: 'string',
         options: {
             list: [
+              { title: "No Space", value: "noSpace" },
                 { title: 'Small', value: 'small' },
                 { title: 'Medium', value: 'medium' },
                 { title: 'Large', value: 'large' },

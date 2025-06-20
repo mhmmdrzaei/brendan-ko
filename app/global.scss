@@ -94,6 +94,7 @@ figure {
 
 body {
   @include fontSize(9);
+  margin: 0;
 }
 
 .page-title {
@@ -485,14 +486,17 @@ overflow-x: auto;
 
   }
 }
+.noSpace {
+  margin-right: 0;
+}
 .small {
-  margin-right: 7em;
+  margin-right: 3em;
 }
 .medium {
-  margin-right: 15em;
+  margin-right: 6em;
 }
 .large {
-  margin-right: 30em;
+  margin-right: 15em;
 }
 .text-item-wrapper {
    @extend .flex;
@@ -547,8 +551,8 @@ overflow-x: auto;
   }
 }
 .headingOpen {
-      position: fixed;
-    width: 100%;
+    position: fixed;
+    width: calc(100% - 30px);
     left: 0;
     z-index: 3;
     top: -20px;
@@ -560,7 +564,6 @@ overflow-x: auto;
 .site-header {
   .side-heading-menu {
     display: none;
-    position: fixed;
     width: 100%;
     z-index: 2;
     left: 0;
@@ -571,11 +574,15 @@ overflow-x: auto;
 
   }
   .heading-left {
-    // width: 100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    flex-flow: wrap;
     .site-branding {
       flex-flow: wrap;
+      h1 {
+        max-width: 82%;
+      }
       .circles {
         margin-top: 5px;
         width: 100%;
@@ -588,8 +595,8 @@ overflow-x: auto;
     }
    .main-heading-menu {
     display: none;
-    position: fixed;
-    width: 100%;
+    margin-top: 30px;
+    width: calc(100% - 10px);
     background: white;
     z-index: 2;
     left: 0;
@@ -599,6 +606,12 @@ overflow-x: auto;
       margin-bottom: 15px;
       ul {
         position: initial;
+        width: initial;
+        padding: 10px;
+        li {
+          margin-bottom: 0px;
+          @include fontSize(8.5);
+        }
       }
     }
 
@@ -671,7 +684,7 @@ overflow-x: auto;
   }
 
     h1 {
-    @include fontSize(13.5);
+    @include fontSize(15);
   }
   .page-scroller, .page-slider {
 

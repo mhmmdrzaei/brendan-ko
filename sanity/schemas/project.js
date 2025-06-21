@@ -33,6 +33,12 @@ export default defineType({
       },
     }),
     defineField({
+  name: 'menuOrder',
+  title: 'Menu Order',
+  type: 'number',
+  description: 'Lower numbers appear first in the menu'
+}),
+    defineField({
         title: 'Page Displays as:',
         name: 'pageDisplay',
         type: 'string',

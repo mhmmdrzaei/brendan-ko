@@ -3,32 +3,41 @@ import clientConfig from './config/client-config'
 
 // Site Settings Query
 export async function getsettings() {
-  return createClient(clientConfig).fetch( groq`
-  *[_type == "settings"][0]{
-    siteTitle,
-    siteDescription,
-    seoImg { asset->{url} },
-    mainHeadingMenu[]->{
-      _type,
-      _id,
-      title,
-      slug,
-      hexColor,
-      // For categories, include all projects referencing them
-      "projects": *[_type == "project" && references(^._id)]{
+  return createClient(clientConfig).fetch(groq`
+    *[_type == "settings"][0]{
+      siteTitle,
+      siteDescription,
+      seoImg { asset->{url} },
+
+      mainHeadingMenu[]->{
+        _type,
         _id,
         title,
-        slug
-      }
-    },
-    sideHeadingMenu[]{
-      linkTitle,
-      linkUrl
-    }
-  }
-`
-  )
+        slug,
+        hexColor,
+        parentCategory->{ 
+          _id,
+          title,
+          slug,
+          hexColor
+        },
+
+"projects": *[_type == "project" && references(^._id)]
+  | order(coalesce(menuOrder, title) asc) {
+    _id,
+    title,
+    slug
 }
+      },
+
+      sideHeadingMenu[]{
+        linkTitle,
+        linkUrl
+      }
+    }
+  `);
+}
+
 export async function getPage(slug) {
   return createClient(clientConfig).fetch(
     groq`*[_type == "page" && slug.current == $slug][0] {

@@ -93,7 +93,7 @@ figure {
 }
 
 body {
-  @include fontSize(9);
+  @include fontSize(8.5);
   margin: 0;
 }
 
@@ -432,7 +432,7 @@ overflow-x: auto;
   align-items: center;
    flex: 0 0 auto;
    display: flex;
-  width: 100%;
+
   max-height: calc(100dvh - 150px);
 
   .video-item {
@@ -723,4 +723,9 @@ overflow-x: auto;
     width: 100%;
    }
   }
+}
+footer {
+  position: absolute;
+  @include fontSize(6);
+  right: 10px;
 }

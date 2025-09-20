@@ -604,7 +604,7 @@ overflow-x: auto;
     .site-branding {
       flex-flow: wrap;
       h1 {
-        max-width: 82%;
+        max-width: 100%;
       }
       .circles {
         margin-top: 5px;
@@ -707,7 +707,7 @@ overflow-x: auto;
   }
 
     h1 {
-    @include fontSize(15);
+    @include fontSize(13);
   }
   .page-scroller, .page-slider {
 

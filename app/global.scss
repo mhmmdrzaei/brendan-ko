@@ -7,7 +7,7 @@ $yellow: #dcc000;
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
-  max-width: 1440px;
+  // max-width: 1440px;
   margin: 0 auto;
   padding: 0 15px;
   height: fit-content;
@@ -115,7 +115,7 @@ body {
   }
 }
 .site-header {
-    max-width: 1440px;
+    // max-width: 1440px;
   padding: 0 15px;
   margin: 20px auto;
   @extend .flex;
@@ -363,9 +363,7 @@ justify-content: center;
   max-width: 1440px;
   height: calc(100dvh - 120px);
   scroll-snap-align: start;
-  .text-item-content {
 
-  }
 
 }
 }

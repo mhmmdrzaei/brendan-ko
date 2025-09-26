@@ -1,29 +1,4 @@
-@font-face {
-  font-family: "gazette_lt_stdbold";
-  src:
-    url("../public/fonts/gazetteltstd-bold-webfont.woff2") format("woff2"),
-    url("../public/fonts/gazetteltstd-bold-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 
-@font-face {
-  font-family: "gazette_lt_stditalic";
-  src:
-    url("../public/fonts/gazetteltstd-italic-webfont.woff2") format("woff2"),
-    url("../public/fonts/gazetteltstd-italic-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "gazette_lt_stdroman";
-  src:
-    url("../public/fonts/gazetteltstd-roman-webfont.woff2") format("woff2"),
-    url("../public/fonts/gazetteltstd-roman-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
 $blue: #252d59;
 $orange: #dc4300;
 $yellow: #dcc000;
@@ -55,8 +30,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "gazette_lt_stdbold", serif;
-  font-weight: 900;
+
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -82,19 +56,20 @@ h4 {
   @include fontSize(9);
 }
 p {
-  font-family: "gazette_lt_stdroman", serif;
+
   letter-spacing: 0.06em;
-  strong {
-    font-family: "gazette_lt_stdbold", serif;
-  }
+
 }
 figure {
   margin: 0;
 }
 
 body {
-  @include fontSize(8.5);
+  font-size: 12px;
   margin: 0;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+
+
 }
 
 .page-title {
@@ -151,6 +126,9 @@ body {
     max-width: 650px;
     .site-branding {
       display: flex;
+      h1 {
+        font-weight: 300;
+      }
       align-items: center;
       a {
         &:hover {
@@ -528,7 +506,7 @@ overflow-x: auto;
   height: calc(100dvh - 195px);
   flex: 0 0 auto;
   min-width: 300px;
-  max-width: 700px;
+  max-width: 420px;
 
 }
 }
@@ -605,6 +583,7 @@ overflow-x: auto;
       flex-flow: wrap;
       h1 {
         max-width: 100%;
+        
       }
       .circles {
         margin-top: 5px;
@@ -702,9 +681,7 @@ overflow-x: auto;
 }
 
 @media (max-width: 600px) {
-  body {
-    @include fontSize(11);
-  }
+
 
     h1 {
     @include fontSize(13);

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 
 export default function SingleImageStatic({ value }) {
   const {
@@ -16,13 +16,11 @@ export default function SingleImageStatic({ value }) {
     <div className={`single-image-wrapper ${spaceBetwen}`}>
       {slideImage?.asset && (
         <figure className="single-image-container" style={heightStyle}>
-          <Image
-            src={slideImage.asset.url}
+          <img  src={slideImage.asset.url}
             alt={slideImage.altText || 'Slide Image'}
-            width={1400}
-            height={800}
             className="image-object"
-          />
+            loading='lazy'/>
+
           {slideImage.caption && (
             <p className="image-caption">{slideImage.caption}</p>
           )}

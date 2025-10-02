@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 
 export default function TwoImageStatic({ value }) {
   const {
@@ -20,11 +20,9 @@ export default function TwoImageStatic({ value }) {
 
         return (
           <div className="two-image-item" style={heightStyle} key={index}>
-            <Image
+            <img
               src={img.asset.url}
               alt={img.altText || `Image ${index + 1}`}
-              width={800}
-              height={800}
               className="image-object"
             />
             {img.caption && <p className="image-caption">{img.caption}</p>}

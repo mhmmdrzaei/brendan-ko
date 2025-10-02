@@ -1,4 +1,4 @@
-import Image from 'next/image';
+
 import { PortableText } from '@portabletext/react';
 
 export default function ImageText({ value }) {
@@ -18,14 +18,9 @@ export default function ImageText({ value }) {
     <div className={`image-text-wrapper ${spaceBetwen}`} >
 {slideImage1 && (
   <figure className="image-text-image" >
-    <Image
-      src={slideImage1.asset.url}
-      alt={slideImage1.altText || 'Slide Image'}
-      width={800}
-      height={800}
-      className="image-object"
-      style={heightStyle}
-    />
+    <img src={slideImage1.asset.url} alt={slideImage1.altText || 'Slide Image'}       className="image-object"
+      style={heightStyle} />
+
     {slideImage1.caption && (
       <p className="image-caption">{slideImage1.caption}</p>
     )}

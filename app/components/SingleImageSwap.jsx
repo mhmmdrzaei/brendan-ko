@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
 
 export default function SingleImageSwap({ value }) {
   const {
@@ -36,19 +35,16 @@ export default function SingleImageSwap({ value }) {
     >
       <figure className="single-image-container" style={heightStyle}>
         {showHoverImage ? (
-          <Image
+          <img
             src={hoverImage.asset.url}
             alt={hoverImage.altText || 'Hover Image'}
-            width={1400}
-            height={800}
+
             className="image-object"
           />
         ) : (
-          <Image
+          <img
             src={slideImage.asset.url}
             alt={slideImage.altText || 'Slide Image'}
-            width={1400}
-            height={800}
             className="image-object"
           />
         )}

@@ -1,6 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 
 export default function TwoImageSwap({ value }) {
   const {
@@ -70,11 +69,9 @@ export default function TwoImageSwap({ value }) {
             onMouseEnter={() => setHovered((prev) => ({ ...prev, [idx]: true }))}
             onMouseLeave={() => setHovered((prev) => ({ ...prev, [idx]: false }))}
           >
-            <Image
+            <img
               src={imageUrl}
               alt={altText}
-              width={800}
-              height={800}
               className="image-object"
             />
             {base.caption && <p className="image-caption">{base.caption}</p>}

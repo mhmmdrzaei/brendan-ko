@@ -8,31 +8,34 @@ export default defineType({
   icon: TextQuote,
   fields: [
     defineField({
-        title: 'Space between item and next item',
-        name: 'spaceBetwen',
-        type: 'string',
-        options: {
-            list: [
-              { title: "No Space", value: "noSpace" },
-                { title: 'Small', value: 'small' },
-                { title: 'Medium', value: 'medium' },
-                { title: 'Large', value: 'large' },
-            ],
-        },
-        initialValue: 'medium' 
+      title: "Space between item and next item",
+      name: "spaceBetwen",
+      type: "string",
+      options: {
+        list: [
+          { title: "No Space", value: "noSpace" },
+          { title: "Small", value: "small" },
+          { title: "Medium", value: "medium" },
+          { title: "Large", value: "large" },
+          { title: "XL", value: "xl" },
+          { title: "XXL", value: "xxl" },
+          { title: "XXXL", value: "xxxl" },
+        ],
+      },
+      initialValue: "medium",
     }),
-      defineField({
-        name: "slideText",
-        title: "Accompanying text",
-        type: 'array', 
-        of: [{type: 'block'}]
-      }),
+    defineField({
+      name: "slideText",
+      title: "Accompanying text",
+      type: "array",
+      of: [{ type: "block" }],
+    }),
   ],
-    preview: {
-  prepare({ }) {
-    return {
-      title: 'Text',
-    };
+  preview: {
+    prepare({}) {
+      return {
+        title: "Text",
+      };
+    },
   },
-}
 });

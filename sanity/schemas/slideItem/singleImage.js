@@ -23,6 +23,9 @@ export default defineType({
           { title: "Small", value: "small" },
           { title: "Medium", value: "medium" },
           { title: "Large", value: "large" },
+          { title: "XL", value: "xl" },
+          { title: "XXL", value: "xxl" },
+          { title: "XXXL", value: "xxxl" },
         ],
       },
       initialValue: "medium",
@@ -63,18 +66,18 @@ export default defineType({
       ],
     }),
   ],
-preview: {
-  select: {
-    media: 'slideImage',
-    height: 'boxHeight',
-    spacing: 'spaceBetwen',
+  preview: {
+    select: {
+      media: "slideImage",
+      height: "boxHeight",
+      spacing: "spaceBetwen",
+    },
+    prepare({ media, height, spacing }) {
+      return {
+        title: "Single  Image",
+        subtitle: `${height ? `${height}%` : "Auto"}, ${spacing || "Default"}`,
+        media,
+      };
+    },
   },
-  prepare({ media, height, spacing }) {
-    return {
-      title: 'Single  Image',
-      subtitle: `${height ? `${height}%` : 'Auto'}, ${spacing || 'Default'}`,
-      media,
-    };
-  },
-}
 });

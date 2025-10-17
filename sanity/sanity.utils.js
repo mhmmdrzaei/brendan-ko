@@ -85,6 +85,8 @@ export async function getPage(slug) {
       _type,
       _key,
       spaceBetwen,
+      lineHeight,
+      textAlign,
       slideText[]{
         ...
       }
@@ -182,6 +184,8 @@ export async function getProject(slug) {
       _type,
       _key,
       spaceBetwen,
+      lineHeight,
+      textAlign,
       slideText[]{
         ...
       }

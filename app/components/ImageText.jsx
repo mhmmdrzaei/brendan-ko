@@ -1,5 +1,6 @@
 
 import { PortableText } from '@portabletext/react';
+import { urlFor } from '../utils/imageBuilder';
 
 export default function ImageText({ value }) {
   const {
@@ -18,7 +19,7 @@ export default function ImageText({ value }) {
     <div className={`image-text-wrapper ${spaceBetwen}`} >
 {slideImage1 && (
   <figure className="image-text-image" >
-    <img src={slideImage1.asset.url} alt={slideImage1.altText || 'Slide Image'}       className="image-object"
+    <img src={urlFor(slideImage1.asset)} alt={slideImage1.altText || 'Slide Image'}       className="image-object"
       style={heightStyle} />
 
     {slideImage1.caption && (

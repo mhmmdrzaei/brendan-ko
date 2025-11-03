@@ -1,5 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { urlFor } from '../utils/imageBuilder';
+
 
 export default function SingleImageSwap({ value }) {
   const {
@@ -36,14 +38,15 @@ export default function SingleImageSwap({ value }) {
       <figure className="single-image-container" style={heightStyle}>
         {showHoverImage ? (
           <img
-            src={hoverImage.asset?.url}
+            src={urlFor(hoverImage.asset).width(1200).quality(70).auto('format').url()}
             alt={hoverImage.altText || 'Hover Image'}
 
             className="image-object"
           />
         ) : (
           <img
-            src={slideImage.asset?.url}
+            src={urlFor(slideImage.asset).width(1200).quality(70).auto('format').url()}
+          
             alt={slideImage.altText || 'Slide Image'}
             className="image-object"
           />

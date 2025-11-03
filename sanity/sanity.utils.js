@@ -53,13 +53,15 @@ export async function getPage(slug) {
       enableHoverSwap,
        hoverImage {
        asset-> {
-       url
+       _ref,
+       _id,
        },
        altText
       },
       slideImage {
         asset->{
-          url
+          _ref,
+          _id,
         },
         caption,
         altText
@@ -72,7 +74,8 @@ export async function getPage(slug) {
       spaceBetwen,
       slideImage1 {
         asset->{
-          url
+          _ref,
+          _id
         },
         caption,
         altText
@@ -100,26 +103,30 @@ export async function getPage(slug) {
       enableSwap2,
       swapImage1 {
         asset->{
-          url
+          _ref,
+          _id
         },
         altText
       },
       swapImage2 {
         asset->{
-          url
+          _ref,
+          _id,
         },
         altText
       },
       slideImage1 {
         asset->{
-          url
+          _ref,
+          _id,
         },
         caption,
         altText
       },
       slideImage2 {
         asset->{
-          url
+          _id,
+          _ref,
         },
         caption,
         altText
@@ -167,14 +174,16 @@ export async function getProject(slug) {
       enableHoverSwap,
        hoverImage {
        asset-> {
-       url
+       _ref,
+       _id,
        },
        altText
       },
       spaceBetwen,
       slideImage {
         asset->{
-          url
+          _ref,
+          _id,
         },
         caption,
         altText
@@ -199,26 +208,30 @@ export async function getProject(slug) {
       enableSwap2,
       swapImage1 {
         asset->{
-          url
+          _id,
+          _ref,
         },
         altText
       },
       swapImage2 {
         asset->{
-          url
+          _id,
+          _ref,
         },
         altText
       },
       slideImage1 {
         asset->{
-          url
+          _id,
+          _ref,
         },
         caption,
         altText
       },
       slideImage2 {
         asset->{
-          url
+          _id,
+          _ref,
         },
         caption,
         altText
@@ -239,7 +252,8 @@ export async function getProject(slug) {
       spaceBetwen,
       slideImage1 {
         asset->{
-          url
+          _ref,
+          _id
         },
         caption,
         altText

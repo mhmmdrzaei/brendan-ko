@@ -336,7 +336,6 @@ details[open] summary::before {
   scroll-snap-align: start;
 
   .video-item {
-    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -345,6 +344,7 @@ details[open] summary::before {
   width: 100%;
   height: auto; // Let it scale with width
   position: relative;
+
     iframe {
     width: 100%;
     height: 100%;
@@ -412,7 +412,6 @@ overflow-x: auto;
   max-height: calc(100dvh - 150px);
 
   .video-item {
-    width: 100%;
     
     display: flex;
     justify-content: center;
@@ -420,7 +419,6 @@ overflow-x: auto;
     position: relative;
     aspect-ratio: 16 / 9;
   width: 100%;
-  height: auto; // Let it scale with width
   position: relative;
     iframe {
     width: 100%;
@@ -429,6 +427,7 @@ overflow-x: auto;
     position: absolute;
     top: 0;
     left: 0;
+
   }
   }
 }

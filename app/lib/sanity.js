@@ -10,5 +10,5 @@ export const client = createClient({
 })
 
 // Helper function for Sanity images
-const builder = imageUrlBuilder(client)
-export const urlFor = (source) => builder.image(source)
+// const builder = imageUrlBuilder(client)
+// export const urlFor = (source) => builder.image(source)

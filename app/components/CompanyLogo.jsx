@@ -4,7 +4,7 @@ export default function StudioLogo() {
     <div style={{ display: 'flex', alignItems: 'center', padding: '0.5rem', height: '13px', width: '20px' }}>
       <img
         src="/bgk.png"
-        alt="Dusk Dances"
+        alt="BGK"
         style={{  }}
       />
     </div>

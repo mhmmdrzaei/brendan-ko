@@ -14,6 +14,9 @@ const componentMap = {
   videoItem: VideoItem,
 };
 
+
+export const revalidate = 10800; 
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const settings = await getsettings();

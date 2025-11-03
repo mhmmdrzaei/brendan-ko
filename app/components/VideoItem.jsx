@@ -13,13 +13,21 @@ export default function VideoItem({ value }) {
   const iframeRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [embedUrl, setEmbedUrl] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Track viewport width so we can switch logic below 800px
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 800);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Build Vimeo embed URL
   useEffect(() => {
     if (!videoEmbed) return;
 
-    const isMobile = window.innerWidth <= 500;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
+    const mobile = window.innerWidth <= 500;
     const match = videoEmbed.match(/vimeo\.com\/(\d+)(?:\/([a-zA-Z0-9]+))?/);
     if (!match) return;
 
@@ -27,10 +35,10 @@ export default function VideoItem({ value }) {
     const hash = match[2];
 
     const params = new URLSearchParams({
-      autoplay: '1', // always request autoplay
+      autoplay: showControls? '0': '1',
       muted: '1',
       loop: '1',
-      controls: isMobile || showControls ? '1' : '0',
+      controls: mobile || showControls ? '1' : '0',
       dnt: '1',
       playsinline: '1',
       api: '1',
@@ -42,7 +50,7 @@ export default function VideoItem({ value }) {
     setMounted(true);
   }, [videoEmbed, showControls]);
 
-  // After iframe loads, try to play programmatically (Safari workaround)
+  // Play programmatically (Safari autoplay workaround)
   useEffect(() => {
     if (!iframeRef.current) return;
     const player = new Player(iframeRef.current);
@@ -50,17 +58,23 @@ export default function VideoItem({ value }) {
     player.ready().then(() => {
       player.setMuted(true);
       player.play().catch(() => {
-        // Safari may still block it silently; optional fallback here
+        // Safari may still block it silently; safe to ignore
       });
     });
   }, [embedUrl]);
 
   if (!videoEmbed) return null;
 
-  const heightStyle =
-    boxHeight && boxHeight < 100
-      ? { height: `${boxHeight}%`, minHeight: '200px' }
-      : { height: '100%', minHeight: '200px' };
+  // Height logic: cap at 76dvh and disable on small screens
+  let heightStyle;
+  if (isMobile) {
+    heightStyle = { width: '100%', height: 'auto', aspectRatio: '16 / 9', minHeight: '200px' };
+  } else {
+    const cappedHeight = boxHeight && boxHeight < 100
+      ? `${(boxHeight / 100) * 76}dvh`
+      : '76dvh';
+    heightStyle = { height: cappedHeight, minHeight: '200px' };
+  }
 
   return (
     <div className={`video-item-wrapper ${spaceBetwen}`}>

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-
+import { urlFor } from '../utils/imageBuilder';
 export default function TwoImageSwap({ value }) {
   const {
     boxHeight,
@@ -58,7 +58,9 @@ export default function TwoImageSwap({ value }) {
         if (!base?.asset) return null;
 
         const showSwap = enabled && swap?.asset && (hovered[idx] || swapped[idx]);
-        const imageUrl = showSwap ? swap.asset.url : base.asset.url;
+        const imageUrl = showSwap
+  ? urlFor(swap.asset).width(1200).quality(70).auto("format").url()
+  : urlFor(base.asset).width(1200).quality(70).auto("format").url();
         const altText = showSwap ? swap.altText || '' : base.altText || '';
 
         return (

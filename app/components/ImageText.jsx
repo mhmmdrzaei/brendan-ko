@@ -19,7 +19,7 @@ export default function ImageText({ value }) {
     <div className={`image-text-wrapper ${spaceBetwen}`} >
 {slideImage1 && (
   <figure className="image-text-image" >
-    <img src={urlFor(slideImage1.asset)} alt={slideImage1.altText || 'Slide Image'}       className="image-object"
+    <img src={urlFor(slideImage1.asset).width(1000).quality(100).auto("format").url()} alt={slideImage1.altText || 'Slide Image'}       className="image-object"
       style={heightStyle} />
 
     {slideImage1.caption && (

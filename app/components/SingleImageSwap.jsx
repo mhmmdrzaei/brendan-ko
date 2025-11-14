@@ -36,7 +36,7 @@ export default function SingleImageSwap({ value }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <figure className="single-image-container" style={heightStyle}>
-        {showHoverImage ? (
+        {showHoverImage && hoverImage?.asset ? (
           <img
             src={urlFor(hoverImage.asset).width(1200).quality(70).auto('format').url()}
             alt={hoverImage.altText || 'Hover Image'}

@@ -5,7 +5,6 @@ import Link from "next/link";
 
 export default function Header({ settings }) {
   const { siteTitle, mainHeadingMenu, sideHeadingMenu = [] } = settings;
-
   const [mobileOpen, setMobileOpen] = useState(false);
   const detailsRefs = useRef([]);
 
@@ -55,45 +54,98 @@ export default function Header({ settings }) {
             mobileOpen ? "openMenu" : "collapsed"
           }`}
         >
-          {mainHeadingMenu.map((item, index) => {
-            if (item._type === "page") {
-              return (
-                <li key={item._id || item.slug?.current}>
-                  <Link href={`/${item.slug?.current}`}>{item.title}</Link>
-                </li>
-              );
-            }
+          
+{mainHeadingMenu.map((item, index) => {
+  //
+  // ------------------------------------
+  // PAGE
+  // ------------------------------------
+if (item._type === "reference" && (!item.projects || item.projects.length === 0)) {
+  return (
+    <li key={item._id || item.slug?.current}>
+      <Link href={`/${item.slug?.current}`}>{item.title}</Link>
+    </li>
+  );
+}
 
-            if (item._type === "category") {
-              return (
-                <li key={item._id || item.slug?.current}>
-                  <details ref={(el) => (detailsRefs.current[index] = el)}>
-                    <summary>
-                      {item.title}
-                      <span className="summary-toggle-icon">
-                      
-                      </span>
-                    </summary>
-                    <ul
-                      style={{
-                        background: item.hexColor || "inherit",
-                      }}
-                    >
-                      {item.projects?.map((project) => (
-                        <li key={project._id || project.slug?.current}>
-                          <Link href={`/projects/${project.slug?.current}`}>
-                            {project.title}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </li>
-              );
-            }
+  //
+  // ------------------------------------
+  // CATEGORY (now _type === "reference")
+  // ------------------------------------
+  if (item._type === "reference") {
+    return (
+      <li key={item._id || item.slug?.current}>
+        <details ref={(el) => (detailsRefs.current[index] = el)}>
+          <summary>
+            {item.title}
+            <span className="summary-toggle-icon"></span>
+          </summary>
 
-            return null;
-          })}
+          <ul
+            style={{
+              background: item.hexColor || "#151b17",
+            }}
+          >
+            {item.projects?.map((project) => (
+              <li key={project._id || project.slug?.current}>
+                <Link href={`/projects/${project.slug?.current}`}>
+                  {project.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </li>
+    );
+  }
+
+  //
+  // ------------------------------------
+  // SUBMENU ITEM
+  // ------------------------------------
+  if (item._type === "submenuItem") {
+    return (
+      <li key={`submenu-${index}`} className="submenu-wrapper">
+        <details ref={(el) => (detailsRefs.current[index] = el)}>
+          <summary>
+            {item.submenuHeading}
+            <span className="summary-toggle-icon"></span>
+          </summary>
+
+          <ul style={{
+              background: "#151b17",
+            }}>
+            {item.submenuItems?.map((sub, i) => (
+              <li key={`submenu-item-${i}`}>
+                <Link href={sub.url}>{sub.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </details>
+      </li>
+    );
+  }
+
+  //
+  // ------------------------------------
+  // OUTBOUND LINK ITEM
+  // ------------------------------------
+  if (item._type === "outboundLinkItem") {
+    return (
+      <li key={`outbound-${index}`}>
+        <a href={item.url} target="_blank" rel="noopener noreferrer">
+          {item.title}
+        </a>
+      </li>
+    );
+  }
+
+  //
+  // FALLBACK (in case something unexpected shows up)
+  // ------------------------------------
+  return null;
+})}
+
         </nav>
       </div>
 

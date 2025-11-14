@@ -21,7 +21,7 @@ export default function TwoImageStatic({ value }) {
         return (
           <div className="two-image-item" style={heightStyle} key={index}>
             <img
-src={urlFor(img.asset).width(1200).quality(70).auto('format').url()}
+src={urlFor(img.asset).width(1000).quality(100).auto('format').url()}
 
               alt={img.altText || `Image ${index + 1}`}
               className="image-object"

@@ -4,30 +4,55 @@ import clientConfig from './config/client-config'
 // Site Settings Query
 export async function getsettings() {
   return createClient(clientConfig).fetch(groq`
-    *[_type == "settings"][0]{
+*[_type == "settings"][0]{
       siteTitle,
       siteDescription,
       seoImg { asset->{url} },
 
-      mainHeadingMenu[]->{
+      mainHeadingMenu[]{
         _type,
-        _id,
-        title,
+
+        // ------------------------------------
+        // CATEGORY
+        // ------------------------------------
+        _type == "reference" => @->{
         slug,
-        hexColor,
-        parentCategory->{ 
           _id,
           title,
           slug,
-          hexColor
+          hexColor,
+
+          // Projects under this category
+          "projects": *[
+            _type == "project" &&
+            references(^._id)
+          ] | order(coalesce(menuOrder, title) asc) {
+            _id,
+            title,
+            slug
+          }
         },
 
-"projects": *[_type == "project" && references(^._id)]
-  | order(coalesce(menuOrder, title) asc) {
-    _id,
-    title,
-    slug
-}
+        // ------------------------------------
+        // SUBMENU ITEM
+        // ------------------------------------
+        _type == "submenuItem" => {
+          isSubmenu,
+          submenuHeading,
+          submenuItems[]{
+            title,
+            url
+          }
+        },
+
+        // ------------------------------------
+        // OUTBOUND LINK ITEM
+        // ------------------------------------
+        _type == "outboundLinkItem" => {
+          isOutboundLink,
+          title,
+          url
+        }
       },
 
       sideHeadingMenu[]{
@@ -55,6 +80,7 @@ export async function getPage(slug) {
        asset-> {
        _ref,
        _id,
+       url
        },
        altText
       },
@@ -176,6 +202,7 @@ export async function getProject(slug) {
        asset-> {
        _ref,
        _id,
+       url,
        },
        altText
       },

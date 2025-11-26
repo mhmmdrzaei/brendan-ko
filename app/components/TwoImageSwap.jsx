@@ -59,8 +59,8 @@ export default function TwoImageSwap({ value }) {
 
         const showSwap = enabled && swap?.asset && (hovered[idx] || swapped[idx]);
         const imageUrl = showSwap
-  ? urlFor(swap.asset).width(1000).quality(100).auto("format").url()
-  : urlFor(base.asset).width(1000).quality(100).auto("format").url();
+  ? urlFor(swap.asset).width(1200).quality(100).auto("format").url()
+  : urlFor(base.asset).width(1200).quality(100).auto("format").url();
         const altText = showSwap ? swap.altText || '' : base.altText || '';
 
         return (

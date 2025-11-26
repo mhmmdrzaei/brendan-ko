@@ -38,14 +38,14 @@ export default function SingleImageSwap({ value }) {
       <figure className="single-image-container" style={heightStyle}>
         {showHoverImage && hoverImage?.asset ? (
           <img
-            src={urlFor(hoverImage.asset).width(1200).quality(70).auto('format').url()}
+            src={urlFor(hoverImage.asset).width(1200).quality(100).auto('format').url()}
             alt={hoverImage.altText || 'Hover Image'}
 
             className="image-object"
           />
         ) : (
           <img
-            src={urlFor(slideImage.asset).width(1200).quality(70).auto('format').url()}
+            src={urlFor(slideImage.asset).width(1200).quality(100).auto('format').url()}
           
             alt={slideImage.altText || 'Slide Image'}
             className="image-object"

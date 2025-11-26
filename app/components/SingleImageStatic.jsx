@@ -11,7 +11,7 @@ export default function SingleImageStatic({ value }) {
       {slideImage?.asset && (
         <figure className="single-image-container" style={heightStyle}>
           <img
-            src={urlFor(slideImage.asset).width(1000).quality(100).auto("format").url()}
+            src={urlFor(slideImage.asset).width(1200).quality(100).auto("format").url()}
             alt={slideImage.altText || "Slide Image"}
             className="image-object"
             loading="lazy"

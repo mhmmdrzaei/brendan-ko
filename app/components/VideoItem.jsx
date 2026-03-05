@@ -11,17 +11,11 @@ export default function VideoItem({ value }) {
   } = value || {};
 
   const iframeRef = useRef(null);
+  const wrapperRef = useRef(null);
   const [mounted, setMounted] = useState(false);
   const [embedUrl, setEmbedUrl] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Track viewport width so we can switch logic below 800px
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 800);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const [videoRatio, setVideoRatio] = useState(16 / 9);
+  const [videoSize, setVideoSize] = useState(null);
 
   // Build Vimeo embed URL
   useEffect(() => {
@@ -56,34 +50,83 @@ export default function VideoItem({ value }) {
     const player = new Player(iframeRef.current);
 
     player.ready().then(() => {
+      Promise.all([player.getVideoWidth(), player.getVideoHeight()])
+        .then(([width, height]) => {
+          if (width > 0 && height > 0) {
+            setVideoRatio(width / height);
+          }
+        })
+        .catch(() => {});
+
       player.setMuted(true);
       player.play().catch(() => {
         // Safari may still block it silently; safe to ignore
       });
     });
+
+    return () => {
+      player.destroy().catch(() => {});
+    };
   }, [embedUrl]);
+
+  useEffect(() => {
+    const updateVideoSize = () => {
+      const parentWidth = wrapperRef.current?.parentElement?.clientWidth;
+      const viewportWidth = Math.max(
+        window.innerWidth - 30,
+        document.documentElement.clientWidth - 30,
+      );
+      const maxWidth = Math.min(Math.max(parentWidth || viewportWidth, 200), 1440);
+      const baseHeight = Math.max(window.innerHeight - 170, 200);
+      const heightFactor = boxHeight && boxHeight < 100 ? boxHeight / 100 : 1;
+      const heightCap = window.innerWidth <= 800 ? 500 : Infinity;
+      const maxHeight = Math.min(baseHeight * heightFactor, heightCap);
+
+      let height = maxHeight;
+      let width = height * videoRatio;
+
+      if (width > maxWidth) {
+        width = maxWidth;
+        height = width / videoRatio;
+      }
+
+      setVideoSize({
+        width: Math.max(1, Math.round(width)),
+        height: Math.max(1, Math.round(height)),
+      });
+    };
+
+    updateVideoSize();
+    const rafId = window.requestAnimationFrame(updateVideoSize);
+    const timeoutId = window.setTimeout(updateVideoSize, 120);
+    window.addEventListener('resize', updateVideoSize);
+    const resizeObserver =
+      typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateVideoSize) : null;
+    if (resizeObserver && wrapperRef.current?.parentElement) {
+      resizeObserver.observe(wrapperRef.current.parentElement);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+      window.removeEventListener('resize', updateVideoSize);
+      resizeObserver?.disconnect();
+    };
+  }, [videoRatio, boxHeight]);
+
+  const videoStyle = videoSize
+    ? { width: `${videoSize.width}px`, height: `${videoSize.height}px` }
+    : undefined;
 
   if (!videoEmbed) return null;
 
-  // Height logic: cap at 76dvh and disable on small screens
-  let heightStyle;
-  if (isMobile) {
-    heightStyle = { width: '100%', height: 'auto', aspectRatio: '16 / 9', minHeight: '200px' };
-  } else {
-    const cappedHeight = boxHeight && boxHeight < 100
-      ? `${(boxHeight / 100) * 76}dvh`
-      : '76dvh';
-    heightStyle = { height: cappedHeight, minHeight: '200px' };
-  }
-
   return (
-    <div className={`video-item-wrapper ${spaceBetwen}`}>
-      <div className="video-item" style={heightStyle}>
+    <div ref={wrapperRef} className={`video-item-wrapper ${spaceBetwen}`}>
+      <div className="video-item" style={videoStyle}>
         {mounted && embedUrl ? (
           <iframe
             ref={iframeRef}
             src={embedUrl}
-            style={{ width: '100%', height: '100%', border: '0' }}
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
             playsInline

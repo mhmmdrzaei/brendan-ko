@@ -76,7 +76,7 @@ export default function VideoItem({ value }) {
         window.innerWidth - 30,
         document.documentElement.clientWidth - 30,
       );
-      const maxWidth = Math.min(Math.max(parentWidth || viewportWidth, 200), 1440);
+      const maxWidth = Math.max(parentWidth || viewportWidth, 200);
       const baseHeight = Math.max(window.innerHeight - 170, 200);
       const heightFactor = boxHeight && boxHeight < 100 ? boxHeight / 100 : 1;
       const heightCap = window.innerWidth <= 800 ? 500 : Infinity;

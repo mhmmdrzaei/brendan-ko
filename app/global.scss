@@ -374,7 +374,7 @@ justify-content: center;
 }
 .image-caption {
   width: 100%;
-  text-align: center;
+  // text-align: center;
   @include fontSize(7);
   margin: 3px 0 5px;
 }
